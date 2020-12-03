@@ -110,10 +110,16 @@ namespace _2DPhysicBall
 
             if (ball1.CircleCollision(ball2))
             {
-                //ball1.GetVel *= -1;
-                //ball2.GetVel *= -1;
+                Vector2 norm1 = ball2.GetPos - ball1.GetPos;
 
+                norm1.Normalize();
 
+                
+                float dotProdukt = Vector2.Dot(norm1,ball1.GetVel);
+                ball1.GetVel *= dotProdukt;
+
+                Console.WriteLine("Normal 1: " + norm1);
+                Console.WriteLine("Ball 1 vel " + ball1.GetVel);
 
                 Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
             }
