@@ -110,15 +110,9 @@ namespace _2DPhysicBall
 
             if (ball1.CircleCollision(ball2))
             {
-               
-                    ball1.GetVel *= -1;
-                    ball2.GetVel *= -1;
-                
-              
-
-
-
-                Console.WriteLine("collide");
+                ball1.GetVel *= -1;
+                ball2.GetVel *= -1;
+                Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
             }
 
 

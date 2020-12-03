@@ -68,6 +68,17 @@ namespace _2DPhysicBall
                 vel = value;
             }
         }
+        public Vector2 GetPos
+        {
+            get
+            {
+                return pos;
+            }
+            set
+            {
+                pos = value;
+            }
+        }
 
         //public bool PixelCollision(Ball other)
 
