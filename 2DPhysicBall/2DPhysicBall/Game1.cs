@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace _2DPhysicBall
@@ -10,7 +11,9 @@ namespace _2DPhysicBall
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Ball ball;
+
+        Ball ball1, ball2;
+
         Texture2D ballTex;
         Vector2 pos, vel;
         float radius;
@@ -48,14 +51,16 @@ namespace _2DPhysicBall
             boundary = new Point(bx - ballTex.Width, by - ballTex.Height);
 
             pos = new Vector2(50, 50);
-            vel = new Vector2(0, 2);
-            ball = new Ball(ballTex, pos, vel, radius, boundary);
-            ballList.Add(ball);
+            vel = new Vector2(2, 0);
+            ball1 = new Ball(ballTex, pos, vel, radius, boundary);
+
+
             radius = 50.0f;
+            ballTex = CreateCircleTexture((int)radius, Color.Red);
             pos = new Vector2(500, 50);
-            vel = new Vector2(0, 2);
-            ball = new Ball(ballTex, pos, vel, radius, boundary);
-            ballList.Add(ball);
+            vel = new Vector2(-2, 0);
+            ball2 = new Ball(ballTex, pos, vel, radius, boundary);
+
         }
 
         protected override void UnloadContent()
@@ -99,10 +104,24 @@ namespace _2DPhysicBall
                 Exit();
 
             // TODO: Add your update logic here
-            foreach (Ball ball in ballList)
+
+            ball1.Update(gameTime);
+            ball2.Update(gameTime);
+
+            if (ball1.CircleCollision(ball2))
             {
-                ball.Update(gameTime);
+               
+                    ball1.GetVel *= -1;
+                    ball2.GetVel *= -1;
+                
+              
+
+
+
+                Console.WriteLine("collide");
             }
+
+
 
 
 
@@ -114,11 +133,9 @@ namespace _2DPhysicBall
 
             spriteBatch.Begin();
 
-            foreach (Ball ball in ballList)
-            {
-                ball.Draw(spriteBatch);
-            }
 
+            ball1.Draw(spriteBatch);
+            ball2.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
