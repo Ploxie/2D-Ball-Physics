@@ -62,8 +62,6 @@ namespace _2DPhysicBall
             boundary = new Point(bx - ballTex.Width, by - ballTex.Height);
             ball2 = new Ball(ballTex, pos, vel, radius, boundary);
 
-            Console.WriteLine(Vector2.Dot(new Vector2(1,0), new Vector2(-1,0)));
-
         }
 
         protected override void UnloadContent()
@@ -130,8 +128,7 @@ namespace _2DPhysicBall
 
                 */
 
-                Vector2 delta = ball1.GetPos - ball2.GetPos;
-                
+                Vector2 delta = ball1.GetPos - ball2.GetPos;                
                 Vector2 normal = delta;
                 normal.Normalize();
                 
@@ -146,9 +143,9 @@ namespace _2DPhysicBall
                 ball2.GetVel += -velDiff2 + velDiff1;                
 
                 //Console.WriteLine("Normal 1: " + norm1);
-                Console.WriteLine("Ball 1 vel " + ball1.GetVel);
-
-                Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
+                //Console.WriteLine("Ball 1 vel " + ball1.GetVel);
+                //Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
+                Console.WriteLine("Collision: p1"+ball1.GetPos+" | p2"+ball2.GetPos + " Time: "+gameTime.TotalGameTime.TotalSeconds);
             }
 
 
