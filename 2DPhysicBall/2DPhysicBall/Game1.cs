@@ -9,7 +9,11 @@ namespace _2DPhysicBall
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        Ball ball;
+        Texture2D ballTex;
+        Vector2 pos, vel;
+        float radius;
+        Point boundary;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -28,8 +32,15 @@ namespace _2DPhysicBall
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
+            radius = 50.0f;
+            ballTex = CreateCircleTexture((int)radius, Color.White);
+            boundary = new Point(Window.ClientBounds.X - ballTex.Width, Window.ClientBounds.Y);
+            pos = new Vector2(50, 50);
+            vel = new Vector2(0, 2);
+
+            ball = new Ball(ballTex, pos, vel, radius,boundary);
         }
 
         protected override void UnloadContent()
@@ -37,9 +48,9 @@ namespace _2DPhysicBall
             // TODO: Unload any non ContentManager content here
         }
 
-public Texture2D CreateCircleTexture(int radius, Color color)
+        public Texture2D CreateCircleTexture(int radius, Color color)
         {
-            Texture2D texture = new Texture2D(graphicsDevice, radius, radius);
+            Texture2D texture = new Texture2D(GraphicsDevice, radius, radius);
             Color[] colorData = new Color[radius * radius];
 
             float diameter = radius / 2f;
@@ -73,6 +84,8 @@ public Texture2D CreateCircleTexture(int radius, Color color)
                 Exit();
 
             // TODO: Add your update logic here
+            ball.Update(gameTime);
+
 
             base.Update(gameTime);
         }
@@ -80,8 +93,11 @@ public Texture2D CreateCircleTexture(int radius, Color color)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            ball.Draw(spriteBatch);
+
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
