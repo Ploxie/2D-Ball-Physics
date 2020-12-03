@@ -16,7 +16,7 @@ namespace _2DPhysicBall
         {
             int i = 0;
 
-            Console.WriteLine(i);
+            Console.WriteLine(i + i);
         }
 
     }
