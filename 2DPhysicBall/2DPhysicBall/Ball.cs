@@ -17,10 +17,6 @@ namespace _2DPhysicBall
         int bY;
         Rectangle hitBox;
 
-        
-        
-
-
 
         public Ball(Texture2D tex, Vector2 pos, Vector2 vel, float radius, Point boundary)
         {
@@ -79,6 +75,14 @@ namespace _2DPhysicBall
             set
             {
                 pos = value;
+            }
+        }
+
+        public float GetRadius
+        {
+            get
+            {
+                return radius;
             }
         }
 
