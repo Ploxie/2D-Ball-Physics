@@ -51,14 +51,14 @@ namespace _2DPhysicBall
             boundary = new Point(bx - ballTex.Width, by - ballTex.Height);
 
             pos = new Vector2(50, 50);
-            vel = new Vector2(2, 0);
+            vel = new Vector2(10, 3);
             ball1 = new Ball(ballTex, pos, vel, radius, boundary);
 
 
             radius = 50.0f;
             ballTex = CreateCircleTexture((int)radius, Color.Red);
             pos = new Vector2(500, 50);
-            vel = new Vector2(-2, 0);
+            vel = new Vector2(-2, 2);
             ball2 = new Ball(ballTex, pos, vel, radius, boundary);
 
         }
@@ -110,10 +110,15 @@ namespace _2DPhysicBall
 
             if (ball1.CircleCollision(ball2))
             {
-                ball1.GetVel *= -1;
-                ball2.GetVel *= -1;
+                //ball1.GetVel *= -1;
+                //ball2.GetVel *= -1;
+
+
+
                 Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
             }
+
+
 
 
 

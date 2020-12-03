@@ -16,6 +16,8 @@ namespace _2DPhysicBall
         int bX;
         int bY;
         Rectangle hitBox;
+
+        
         
 
 
@@ -41,12 +43,12 @@ namespace _2DPhysicBall
         {
             pos += vel;
 
-            if (pos.X <= 0 && vel.X < 0 || pos.X >= bX && vel.X > 0)
+            if (pos.X - radius <= 0 || pos.X - radius >= bX )
             {
                 vel.X *= -1;
             }
 
-            if (pos.Y <= 0 && vel.Y < 0 || pos.Y >= bY && vel.Y > 0)
+            if (pos.Y - radius <= 0 || pos.Y - radius >= bY )
             {
                 vel.Y *= -1;
             }
@@ -54,7 +56,7 @@ namespace _2DPhysicBall
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(tex, pos, Color.White);
+            sb.Draw(tex, pos, null, Color.White, 0, new Vector2(tex.Width / 2.0f, tex.Height / 2.0f), 1, SpriteEffects.None, 0);
         }
 
         public Vector2 GetVel
