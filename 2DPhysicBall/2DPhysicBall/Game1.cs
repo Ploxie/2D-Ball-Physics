@@ -14,10 +14,15 @@ namespace _2DPhysicBall
         Vector2 pos, vel;
         float radius;
         Point boundary;
+
+        int bx, by;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            bx=graphics.PreferredBackBufferWidth = 800;
+            by=graphics.PreferredBackBufferHeight = 600;
         }
 
         protected override void Initialize()
@@ -32,15 +37,15 @@ namespace _2DPhysicBall
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
             // TODO: use this.Content to load your game content here
             radius = 50.0f;
             ballTex = CreateCircleTexture((int)radius, Color.White);
-            boundary = new Point(Window.ClientBounds.X - ballTex.Width, Window.ClientBounds.Y);
+            boundary = new Point(bx-ballTex.Width, by-ballTex.Height);
             pos = new Vector2(50, 50);
             vel = new Vector2(0, 2);
 
-            ball = new Ball(ballTex, pos, vel, radius,boundary);
+            ball = new Ball(ballTex, pos, vel, radius, boundary);
         }
 
         protected override void UnloadContent()
