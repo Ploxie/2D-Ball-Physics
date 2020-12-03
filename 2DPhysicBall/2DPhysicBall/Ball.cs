@@ -12,7 +12,7 @@ namespace _2DPhysicBall
     {
         Texture2D ballTex;
         Vector2 pos,vel;
-        float r;
+        float radius;
         
         public Ball(Texture2D ballTex,Vector2 pos, Vector2 vel, float r)
         {
@@ -22,6 +22,11 @@ namespace _2DPhysicBall
             this.r = r;
         }
 
+        public bool CircleCollision(Ball other)
+        {
+            return Vector2.Distance(pos, other.pos) < (radius + other.radius);
+        }
+
         public void Update(GameTime gameTime)
         {
 
@@ -29,7 +34,7 @@ namespace _2DPhysicBall
 
         public void Draw(SpriteBatch sb)
         {
-            //sb.Draw();
+            sb.Draw(ballTex,pos,Color.White);
         }
 
 
