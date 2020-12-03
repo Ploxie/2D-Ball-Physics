@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace _2DPhysicBall
 {
@@ -14,6 +15,7 @@ namespace _2DPhysicBall
         Vector2 pos, vel;
         float radius;
         Point boundary;
+        List<Ball> ballList;
 
         int bx, by;
 
@@ -21,8 +23,8 @@ namespace _2DPhysicBall
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            bx=graphics.PreferredBackBufferWidth = 800;
-            by=graphics.PreferredBackBufferHeight = 600;
+            bx = graphics.PreferredBackBufferWidth = 800;
+            by = graphics.PreferredBackBufferHeight = 600;
         }
 
         protected override void Initialize()
@@ -39,13 +41,21 @@ namespace _2DPhysicBall
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            ballList = new List<Ball>();
+
             radius = 50.0f;
             ballTex = CreateCircleTexture((int)radius, Color.White);
-            boundary = new Point(bx-ballTex.Width, by-ballTex.Height);
+            boundary = new Point(bx - ballTex.Width, by - ballTex.Height);
+
             pos = new Vector2(50, 50);
             vel = new Vector2(0, 2);
-
             ball = new Ball(ballTex, pos, vel, radius, boundary);
+            ballList.Add(ball);
+            radius = 50.0f;
+            pos = new Vector2(500, 50);
+            vel = new Vector2(0, 2);
+            ball = new Ball(ballTex, pos, vel, radius, boundary);
+            ballList.Add(ball);
         }
 
         protected override void UnloadContent()
@@ -89,7 +99,11 @@ namespace _2DPhysicBall
                 Exit();
 
             // TODO: Add your update logic here
-            ball.Update(gameTime);
+            foreach (Ball ball in ballList)
+            {
+                ball.Update(gameTime);
+            }
+
 
 
             base.Update(gameTime);
@@ -100,7 +114,11 @@ namespace _2DPhysicBall
 
             spriteBatch.Begin();
 
-            ball.Draw(spriteBatch);
+            foreach (Ball ball in ballList)
+            {
+                ball.Draw(spriteBatch);
+            }
+
 
             spriteBatch.End();
             base.Draw(gameTime);
