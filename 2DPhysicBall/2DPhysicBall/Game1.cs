@@ -62,7 +62,7 @@ namespace _2DPhysicBall
             boundary = new Point(bx - ballTex.Width, by - ballTex.Height);
             ball2 = new Ball(ballTex, pos, vel, radius, boundary);
 
-            Console.WriteLine(Vector2.Dot(new Vector2(1,0), new Vector2(-1,0)));
+            Console.WriteLine(Vector2.Dot(new Vector2(1, 0), new Vector2(-1, 0)));
 
         }
 
@@ -114,7 +114,6 @@ namespace _2DPhysicBall
             // Check collision between balls
             if (Vector2.Distance(ball1.GetPos, ball2.GetPos) < (ball1.GetRadius + ball2.GetRadius))
             {
-                
                 /*
                 Consider two balls B1 and B2 having initial velocities U1 and U2. After the two balls collide, their
                 normal velocities get exchanged.The normal N at the point of contact is given by the equation
@@ -127,35 +126,29 @@ namespace _2DPhysicBall
                 The new velocities V1 and V2 of the balls B1 and B2 after their collision are:
                                 V1 = U1 – U1n + U2n
                 V2 = U2 – U2n + U1n
-
                 */
 
-                Vector2 delta = ball1.GetPos - ball2.GetPos;
-                
+                Vector2 delta = ball1.GetPos - ball2.GetPos; //skillnad mellan ballarnas centers.
+
                 Vector2 normal = delta;
-                normal.Normalize();
-                
+                normal.Normalize(); //normaliserar delta
+
                 // Ju mer lika bollarnas riktning är, ju närmre 1 blir deras dot-produkt
                 // Medans ju mindre lika bollarnas riktning är, ju närmre -1 blir deras dot-produkt
                 // Så ju närmre man kommer -1, ju mer blir deras riktning inverterad                
 
                 Vector2 velDiff1 = Vector2.Dot(ball1.GetVel, normal) * normal;
                 Vector2 velDiff2 = Vector2.Dot(ball2.GetVel, normal) * normal;
-                
+
                 ball1.GetVel += -velDiff1 + velDiff2;
-                ball2.GetVel += -velDiff2 + velDiff1;                
+                ball2.GetVel += -velDiff2 + velDiff1;
 
                 //Console.WriteLine("Normal 1: " + norm1);
                 Console.WriteLine("Ball 1 vel " + ball1.GetVel);
 
                 Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
             }
-
-
-
-
-
-
+            
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
