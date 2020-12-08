@@ -12,7 +12,7 @@ namespace _2DPhysicBall
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Ball ball1, ball2;
+        Ball whiteBall, redBall;
 
         Texture2D ballTex;
         Vector2 pos, vel;
@@ -52,7 +52,7 @@ namespace _2DPhysicBall
 
             pos = new Vector2(50, 50);
             vel = new Vector2(2, 3);
-            ball1 = new Ball(ballTex, pos, vel, radius, boundary);
+            whiteBall = new Ball(ballTex, pos, vel, radius, boundary);
 
 
             radius = 50.0f;
@@ -60,7 +60,7 @@ namespace _2DPhysicBall
             pos = new Vector2(500, 50);
             vel = new Vector2(-5, 2);
             boundary = new Point(bx - ballTex.Width, by - ballTex.Height);
-            ball2 = new Ball(ballTex, pos, vel, radius, boundary);
+            redBall = new Ball(ballTex, pos, vel, radius, boundary);
         }
 
         protected override void UnloadContent()
@@ -105,11 +105,11 @@ namespace _2DPhysicBall
 
             // TODO: Add your update logic here
 
-            ball1.Update(gameTime);
-            ball2.Update(gameTime);
+            whiteBall.Update(gameTime);
+            redBall.Update(gameTime);
 
             // Check collision between balls
-            if (Vector2.Distance(ball1.GetPos, ball2.GetPos) < (ball1.GetRadius + ball2.GetRadius))
+            if (Vector2.Distance(whiteBall.GetPos, redBall.GetPos) < (whiteBall.GetRadius + redBall.GetRadius))
             {
                 /*
                 Consider two balls B1 and B2 having initial velocities U1 and U2. After the two balls collide, their
@@ -125,27 +125,27 @@ namespace _2DPhysicBall
                                 V2 = U2 – U2n + U1n
                 */
 
-                Vector2 delta = ball1.GetPos - ball2.GetPos; //skillnad mellan ballarnas centers.
+                Vector2 delta = whiteBall.GetPos - redBall.GetPos; //skillnad mellan ballarnas centers.
 
                 Vector2 normal = delta;
                 normal.Normalize(); //normaliserar delta
 
                 // Ju mer lika bollarnas riktning är, ju närmre 1 blir deras dot-produkt
                 // Medans ju mindre lika bollarnas riktning är, ju närmre -1 blir deras dot-produkt
-                // Så ju närmre man kommer -1, ju mer blir deras riktning inverterad                
-
+                // Så ju närmre man kommer -1, ju mer blir deras riktning inverterad                            
+          
                 /*normal komponenter*/
-                Vector2 velDiff1 = Vector2.Dot(ball1.GetVel, normal) * normal; 
-                Vector2 velDiff2 = Vector2.Dot(ball2.GetVel, normal) * normal;
+                Vector2 velDiff1 = Vector2.Dot(whiteBall.GetVel, normal) * normal;
+                Vector2 velDiff2 = Vector2.Dot(redBall.GetVel, normal) * normal;
 
                 /* nya riktning efter kollision */
-                ball1.GetVel += -velDiff1 + velDiff2;
-                ball2.GetVel += -velDiff2 + velDiff1;
+                whiteBall.GetVel += -velDiff1 + velDiff2;
+                redBall.GetVel += -velDiff2 + velDiff1;
 
                 //Console.WriteLine("Normal 1: " + norm1);
                 //Console.WriteLine("Ball 1 vel " + ball1.GetVel);
                 //Console.WriteLine("Ball 1 pos:" + ball1.GetPos + " | Ball 2 pos: " + ball2.GetPos);
-                Console.WriteLine("Collision: p1"+ball1.GetPos+" | p2"+ball2.GetPos + " Time: "+gameTime.TotalGameTime.TotalSeconds);
+                Console.WriteLine("Collision: p1"+whiteBall.GetPos+" | p2"+redBall.GetPos + " Time: "+gameTime.TotalGameTime.TotalSeconds);
             }
             
             base.Update(gameTime);
@@ -157,8 +157,8 @@ namespace _2DPhysicBall
             spriteBatch.Begin();
 
 
-            ball1.Draw(spriteBatch);
-            ball2.Draw(spriteBatch);
+            whiteBall.Draw(spriteBatch);
+            redBall.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
