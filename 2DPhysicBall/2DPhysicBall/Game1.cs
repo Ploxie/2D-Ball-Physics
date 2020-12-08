@@ -125,7 +125,7 @@ namespace _2DPhysicBall
                                 V2 = U2 – U2n + U1n
                 */
 
-                Vector2 delta = whiteBall.GetPos - redBall.GetPos; //skillnad mellan ballarnas centers.
+                Vector2 delta = whiteBall.GetPos - redBall.GetPos; //skillnad mellan bollarnas centers.
 
                 Vector2 normal = delta;
                 normal.Normalize(); //normaliserar delta
