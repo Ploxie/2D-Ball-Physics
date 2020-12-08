@@ -117,7 +117,7 @@ namespace _2DPhysicBall
                 N = (C1C2)Nu
                 where Nu is the unit normal vector at the point of contact and C1 and C2 are the centers of the two
                 balls at the time of collision.
-                The normal components U1n and U2n of balls B1 and B2 are :
+                The normal components U1n and U2n of Redb and B2 are :
                 U1n = dot(U1.N)N
                 U2n = dot(U2.N)N
                 The new velocities V1 and V2 of the balls B1 and B2 after their collision are:
