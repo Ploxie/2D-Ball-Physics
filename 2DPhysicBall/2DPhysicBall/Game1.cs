@@ -122,7 +122,7 @@ namespace _2DPhysicBall
                 U2n = dot(U2.N)N
                 The new velocities V1 and V2 of the balls B1 and B2 after their collision are:
                                 V1 = U1 – U1n + U2n
-                V2 = U2 – U2n + U1n
+                                V2 = U2 – U2n + U1n
                 */
 
                 Vector2 delta = ball1.GetPos - ball2.GetPos; //skillnad mellan ballarnas centers.
@@ -134,9 +134,11 @@ namespace _2DPhysicBall
                 // Medans ju mindre lika bollarnas riktning är, ju närmre -1 blir deras dot-produkt
                 // Så ju närmre man kommer -1, ju mer blir deras riktning inverterad                
 
-                Vector2 velDiff1 = Vector2.Dot(ball1.GetVel, normal) * normal;
+                /*normal komponenter*/
+                Vector2 velDiff1 = Vector2.Dot(ball1.GetVel, normal) * normal; 
                 Vector2 velDiff2 = Vector2.Dot(ball2.GetVel, normal) * normal;
 
+                /* nya riktning efter kollision */
                 ball1.GetVel += -velDiff1 + velDiff2;
                 ball2.GetVel += -velDiff2 + velDiff1;
 
